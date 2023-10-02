@@ -1,6 +1,6 @@
 const app = require('./app');
 const sequelize = require('./utils/connection');
-
+require("./modals")
 const PORT = process.env.PORT || 8080;
 
 const main = async () => {
