@@ -94,7 +94,7 @@ test("Put /cart-products/:id", async()=>{
 
 test("Delete /cart-products/:id", async()=>{
     const res = await request(app)
-        .delete(`cart-products/${id}`)
+        .delete(`/cart-products/${id}`)
         .set('Authorization', `Bearer ${token}`);
     
     expect(res.status).toBe(204)
