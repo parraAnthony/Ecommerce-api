@@ -8,11 +8,12 @@ const getAll = catchError(async(req, res) => {
 });
 const getOne = catchError(async(req, res)=> {
     const {id} = req.params
-    const product = await Product.findByPk(id)
+    const product = await Product.findByPk({id, include: [Image]})
     if(!product){return res.status(404).json("Product not found")}
     return res.json(product)
 
 })
+
 const create = catchError(async(req, res)=> {
     const product = await Product.create(req.body)
     return res.status(201).json(product)
