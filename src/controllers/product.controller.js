@@ -3,9 +3,13 @@ const Product = require('../modals/Product');
 const Image = require("../modals/Image")
 
 const getAll = catchError(async(req, res) => {
+    const {title, categoryId} = req.query
+    const where = {}
+    if(title) {where.title =  { [Op.iLike]: `%${title}%` }}
+    if(categoryId){where.categoryId = categoryId}
     const products = await Product.findAll({
          include: [Image],
-         where: {}
+         where
         
         })
     return res.json(products)
