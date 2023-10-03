@@ -3,12 +3,16 @@ const Product = require('../modals/Product');
 const Image = require("../modals/Image")
 
 const getAll = catchError(async(req, res) => {
-    const products = await Product.findAll({ include: [Image]})
+    const products = await Product.findAll({
+         include: [Image],
+         where: {}
+        
+        })
     return res.json(products)
 });
 const getOne = catchError(async(req, res)=> {
     const {id} = req.params
-    const product = await Product.findByPk({id, include: [Image]})
+    const product = await Product.findByPk(id,{ include: [Image] })
     if(!product){return res.status(404).json("Product not found")}
     return res.json(product)
 
