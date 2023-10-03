@@ -51,8 +51,9 @@ test("Post /cart-products", async()=>{
         .set('Authorization', `Bearer ${token}`);
 
     id = res.body.id
-    await product.destroy();
-    await category.destroy();
+    console.log(res.body)
+    await Product.destroy({where: {id: product.id}});
+    await Category.destroy({where: {id: category.id}});
 
     expect(res.status).toBe(201)
     expect(res.body.id).toBeDefined()
@@ -83,6 +84,9 @@ test("Put /cart-products/:id", async()=>{
         .put(`/cart-products/${id}`)
         .send(productCart)
         .set('Authorization', `Bearer ${token}`);
+
+    await Product.destroy({where: {id: product.id}});
+    await Category.destroy({where: {id: category.id}});
     
     expect(res.status).toBe(200)
     expect(res.body.quantity).toBe(productCart.quantity)
